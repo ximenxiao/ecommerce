@@ -1,11 +1,12 @@
 package com.demo.ecommerce.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import com.demo.ecommerce.domain.Review;
 import com.demo.ecommerce.domain.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface ReviewRepository extends JpaRepository<Review, Long>  {
+Review findByReviewId(Long Id);
 
-	User findByUserName(String userName);
-
+Review findByUserName(String userName);
 }
