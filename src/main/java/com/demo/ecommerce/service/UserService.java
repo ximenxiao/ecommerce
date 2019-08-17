@@ -10,5 +10,7 @@ public interface UserService {
 	User add(User user);
 	User update(User user);
 	void delete(User user);
+	List<User> findAll(String userName, Integer status, String email, String country);
+	User update(Long id, User user);
 	
 }

@@ -6,7 +6,6 @@ import com.demo.ecommerce.domain.User;
 public interface ReviewService {
 	List<Review> findAll();
 	Review findById(Long id);
-	Review  findByUserName(String userName);
 	Review  add(Review  review );
 	Review  update(Review  review );
 	void delete(Review  review );

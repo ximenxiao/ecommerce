@@ -28,12 +28,6 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public Review findByUserName(String userName) {
-		// TODO Auto-generated method stub
-		return reviewRepository.findByUserName(userName);
-	}
-
-	@Override
 	public Review add(Review review) {
 		// TODO Auto-generated method stub
 		return reviewRepository.save(review);
@@ -53,7 +47,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public List<Review> findReviewByUserName(String userName) throws Exception {		
-		return reviewRepository.findByUserName(userService.findByUserName(userName));
+		return reviewRepository.findByUserName(userName);
 	}
 
 	@Override
