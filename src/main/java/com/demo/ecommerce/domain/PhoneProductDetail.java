@@ -8,14 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "phone product detail")
+@Table(name = "phoneProductDetail")
 public class PhoneProductDetail {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "phoneProductId")
@@ -39,13 +34,6 @@ public class PhoneProductDetail {
 	@Column (name = "sellerId")
 	private Integer sellerId;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Long getPhoneProductId() {
 		return phoneProductId;
@@ -107,7 +95,6 @@ public class PhoneProductDetail {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((memory == null) ? 0 : memory.hashCode());
 		result = prime * result + ((phoneProductId == null) ? 0 : phoneProductId.hashCode());
 		result = prime * result + ((productCondition == null) ? 0 : productCondition.hashCode());
@@ -127,11 +114,6 @@ public class PhoneProductDetail {
 		if (getClass() != obj.getClass())
 			return false;
 		PhoneProductDetail other = (PhoneProductDetail) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
 		if (memory == null) {
 			if (other.memory != null)
 				return false;
@@ -172,10 +154,13 @@ public class PhoneProductDetail {
 
 	@Override
 	public String toString() {
-		return "PhoneProductDetail [id=" + id + ", phoneProductId=" + phoneProductId + ", wirelessCarrier="
-				+ wirelessCarrier + ", productCondition=" + productCondition + ", memory=" + memory + ", ramSize="
-				+ ramSize + ", status=" + status + ", sellerId=" + sellerId + "]";
+		return "PhoneProductDetail [phoneProductId=" + phoneProductId + ", wirelessCarrier=" + wirelessCarrier
+				+ ", productCondition=" + productCondition + ", memory=" + memory + ", ramSize=" + ramSize + ", status="
+				+ status + ", sellerId=" + sellerId + "]";
 	}
+
+	
+	
 	
 
 	

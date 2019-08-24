@@ -5,12 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.demo.ecommerce.domain.Product;
 import com.demo.ecommerce.exception.ResourceNotFoundException;
 import com.demo.ecommerce.repository.ProductRepository;
 import com.demo.ecommerce.service.ProductsService;
 
+@Service
 public class ProductsServiceImpl implements ProductsService{
 
 	@Autowired
