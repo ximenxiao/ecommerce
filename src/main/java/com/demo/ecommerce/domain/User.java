@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user")
@@ -22,15 +23,19 @@ public class User {
 	@Column(name = "userId")
 	private Long userId;
 	
+	@NotNull(message = "userName cannot be null")
 	@Column(name = "userName",nullable=false,unique=true,length=50) 
 	private String userName;
 	
+	@NotNull(message = "password cannot be null")
 	@Column(name = "password",nullable=false)
 	private String password;
 	
+	@NotNull(message = "firstName cannot be null")
 	@Column(name = "firstName",nullable=false)
 	private String firstName;
 	
+	@NotNull(message = "lastName cannot be null")
 	@Column(name = "lastName",nullable=false)
 	private String lastName;
 	
@@ -70,7 +75,6 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "userId")
 	private List<Product> favoriteProducts;
-	
 	
 
 	public Integer getStatus() {

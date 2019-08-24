@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.demo.ecommerce.domain.User;
 import com.demo.ecommerce.service.UserService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class UserController {
 	
@@ -29,6 +31,7 @@ public class UserController {
 			@RequestParam(value = "country", required = false)String country
 			) {
 		return userService.findAll(userName,status,email,country);
+<<<<<<< HEAD
 	}
 	
 	@GetMapping("/users/{id}")
@@ -46,6 +49,25 @@ public class UserController {
 		return userService.update(id,user);
 	}
 	
+=======
+	}
+	
+	@GetMapping("/users/{id}")
+	public User findUserById(@PathVariable("id") Long id) {
+		return userService.findById(id);
+	}
+	
+	@PostMapping("/users")
+	public User addUser(@RequestBody User user) {
+		return userService.add(user);
+	}
+	
+	@PutMapping("/users/{id}")
+	public User updateUser(@PathVariable("id") Long id, @RequestBody User user) {
+		return userService.update(id,user);
+	}
+	
+>>>>>>> upstream/master
 	@DeleteMapping("/users/{id}")
 	public User deleteUser(@PathVariable("id") Long id) {
 		 userService.delete(userService.findById(id));
@@ -56,4 +78,8 @@ public class UserController {
 	
 	
 	
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> upstream/master
