@@ -1,10 +1,7 @@
 package com.demo.ecommerce.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,13 +12,50 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "shipment")
 @Table(name = "shipment")
 public class Shipment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "shipmentId")
 	private Long shipmentId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "userOrderId")
+	private UserOrder userOrder;
+	
+
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "userId", referencedColumnName = "userId")
+//	private User user;
+
+	@Column(name = "address")
+	private String address;
+
+	@Column(name = "phoneNumber")
+	private String phoneNumber;
+
+	@Column(name = "shippedDate")
+	private Date shippedDate;
+	
+	@Column(name = "arrivedDate")
+	private Date arrivedDate;
+	
+	@Column(name = "carrier")
+	private Date carrier;
+
+	@Column(name = "status")
+	private Integer status;
+
+	public Date getArrivedDate() {
+		return arrivedDate;
+	}
+
+	public void setArrivedDate(Date arrivedDate) {
+		this.arrivedDate = arrivedDate;
+	}
+
+	
 	
 	public Long getShipmentId() {
 		return shipmentId;
@@ -31,7 +65,6 @@ public class Shipment {
 		this.shipmentId = shipmentId;
 	}
 
-	
 	public UserOrder getUserOrder() {
 		return userOrder;
 	}
@@ -40,13 +73,13 @@ public class Shipment {
 		this.userOrder = userOrder;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 	public String getAddress() {
 		return address;
@@ -88,30 +121,5 @@ public class Shipment {
 		this.status = status;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="userOrderId")
-	    private UserOrder userOrder;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="userId", referencedColumnName="userId")
-	    private User user;
-	    
-	@Column(name = "address")
-	private String address;
-	
-	@Column(name = "phoneNumber")
-	private String phoneNumber;
-	
-	@Column(name = "shippedDate")
-	private Date shippedDate;
-	
-	@Column(name = "carrier")
-	private Date carrier;
-	
-	@Column(name = "status")
-	private Integer status;
-	
-	
-	
-	  
+
 }

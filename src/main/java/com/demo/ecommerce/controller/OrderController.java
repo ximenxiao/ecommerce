@@ -1,6 +1,8 @@
 package com.demo.ecommerce.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,8 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.ecommerce.domain.Product;
+import com.demo.ecommerce.domain.Shipment;
 import com.demo.ecommerce.domain.User;
 import com.demo.ecommerce.domain.UserOrder;
 import com.demo.ecommerce.service.OrderService;
@@ -22,30 +27,56 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	@GetMapping("/userOrders")
+	@GetMapping("/orders")
 	public List<UserOrder> findAllOrders(){
-		return orderService.findAll();
+       return orderService.findAll();
+	}
+	/*
+	 * public List<UserOrder> findAllOrders(
+	 * 
+	 * @RequestParam(value = "userOrderId", required = false)Long userOrderId,
+	 * 
+	 * @RequestParam(value = "totalPrice", required = false)BigDecimal totalPrice,
+	 * 
+	 * @RequestParam(value = "order_product", required = false)Set<Product>
+	 * products,
+	 * 
+	 * @RequestParam(value = "discount", required = false)BigDecimal discount,
+	 * 
+	 * @RequestParam(value = "orderStatus", required = false)Integer orderStatus
+	 * 
+	 * ){
+	 * 
+	 * 
+	 * return
+	 * orderService.findAll(userOrderId,totalPrice,products,discount,orderStatus); }
+	 */
+	
+	@GetMapping("/orders/{userOrderId}")
+	public UserOrder findOrderById(@PathVariable("userOrderId") Long userOrderId) {
+		return orderService.findByOrderId(userOrderId);
 	}
 	
-	@GetMapping("/userOrders/{id}")
-	public UserOrder findOrderById(@PathVariable("id") Long id) {
-		return orderService.findById(id);
+	@GetMapping("/user/{userId}/orders")
+	public List<UserOrder> findByUser(Long userId){
+		return orderService.findByUser(userId);
 	}
 	
-	@PostMapping("/userOrders")
+	@PostMapping("/orders")
 	public UserOrder addOrder(@RequestBody UserOrder userOrder) {
 		return orderService.add(userOrder);
 	}
 	
-	@PutMapping("/userOrders/{id}")
+	
+	@PutMapping("/orders/{id}")
 	public UserOrder updateOrder(@PathVariable("id") Long id,@RequestBody UserOrder userOrder) {
-				return orderService.update(userOrder);
+				return orderService.update(id, userOrder);
 		
 	}
 	
-	@DeleteMapping("/userOrders")
-	public void deleteOrder(UserOrder userOrder) {
-		orderService.delete(userOrder);
+	@DeleteMapping("/orders/{id}")
+	public void deleteOrder(@PathVariable("userOrderId") Long userOrderId) {
+		orderService.delete(orderService.findByOrderId(userOrderId));
 	}
 	
 	

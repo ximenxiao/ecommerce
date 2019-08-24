@@ -11,7 +11,8 @@ public interface UserService {
 	User findByUserName(String userName);
 	User add(User user);
 	User update(User user);
-	User update(Long id, User user);
 	void delete(User user);
+	List<User> findAll(String userName, Integer status, String email, String country);
+	User update(Long id, User user);
 	
 }

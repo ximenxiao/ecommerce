@@ -20,6 +20,19 @@ public class Payment {
 	@Column(name = "paymentId")
 	private Long paymentId;
 	
+	@OneToOne(fetch = FetchType.LAZY)
+	@MapsId
+	private UserOrder userOrder;
+	
+	@Column(name = "totalPrice",nullable=false)
+	private BigDecimal totalPrice;
+	
+	@Column(name= "paymentMethod",nullable=false)
+	private String paymentMethod;
+	
+	@Column(name = "paymentStatus")
+	private Integer paymentStatus;
+	
 	public Long getPaymentId() {
 		return paymentId;
 	}
@@ -27,8 +40,6 @@ public class Payment {
 	public void setPaymentId(Long paymentId) {
 		this.paymentId = paymentId;
 	}
-
-	
 
 	public UserOrder getUserOrder() {
 		return userOrder;
@@ -62,17 +73,6 @@ public class Payment {
 		this.paymentStatus = paymentStatus;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@MapsId
-	private UserOrder userOrder;
-	
-	@Column(name = "totalPrice",nullable=false)
-	private BigDecimal totalPrice;
-	
-	@Column(name= "paymentMethod",nullable=false)
-	private String paymentMethod;
-	
-	@Column(name = "paymentStatus")
-	private Integer paymentStatus;
+
 	
 }

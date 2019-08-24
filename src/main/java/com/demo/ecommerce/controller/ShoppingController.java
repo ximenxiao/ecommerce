@@ -25,11 +25,11 @@ public class ShoppingController {
 	@Autowired
 	private ShipmentService shipmentService;
 	
-	@GetMapping("/test")
-	public Object hello() {
-		UserOrder a = new UserOrder();
-		a = orderService.add(a);
-		return paymentService.findByOrderID(a.getOrderId());
-	}
+//	@GetMapping("/test")
+//	public Object hello() {
+//		UserOrder a = new UserOrder();
+//		a = orderService.add(a);
+//		return paymentService.findByOrderID(a.getOrderId());
+//	}
 	
 }

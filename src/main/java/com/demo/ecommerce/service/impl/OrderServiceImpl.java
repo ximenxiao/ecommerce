@@ -9,11 +9,15 @@ import com.demo.ecommerce.domain.UserOrder;
 import com.demo.ecommerce.exception.ResourceNotFoundException;
 import com.demo.ecommerce.repository.OrderRepository;
 import com.demo.ecommerce.service.OrderService;
+import com.demo.ecommerce.service.UserService;
 @Service
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	public List<UserOrder> findAll() {
@@ -21,8 +25,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public UserOrder findById(Long id) {
-		return orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+	public UserOrder findByOrderId(Long userOrderId) {
+		return orderRepository.findById(userOrderId).orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+	}
+	
+
+	@Override
+	public List<UserOrder> findByUser(Long userId) {
+		return orderRepository.findByUser(userService.findById(userId));
 	}
 
 	@Override
@@ -40,5 +50,15 @@ public class OrderServiceImpl implements OrderService {
 		orderRepository.delete(order);
 		
 	}
+
+	@Override
+	public UserOrder update(Long userOrderId, UserOrder userOrder) {
+		UserOrder uo= findByOrderId(userOrderId);
+		uo.setProducts(userOrder.getProducts());
+		uo.setTotalPrice(userOrder.getTotalPrice());
+		uo.setDiscount(userOrder.getDiscount());
+		return orderRepository.save(userOrder);
+	}
+
 
 }

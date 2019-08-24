@@ -15,10 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table; 
+import javax.persistence.Table;
 
-@Entity
-@Table(name = "UserOrder")
+import com.fasterxml.jackson.annotation.JsonIgnore; 
+
+@Entity(name = "userOrder")
+@Table(name = "userOrder")
 public class UserOrder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,22 +34,57 @@ public class UserOrder {
     @JoinTable(name="order_product", joinColumns=@JoinColumn(name="userOrderId"), inverseJoinColumns=@JoinColumn(name="productId"))
 	private Set<Product> products;
 	
-	@Column(name = "discount",nullable=false)
+	@Column(name = "discount")
 	private BigDecimal discount;
 	
 	@Column(name = "orderStatus")
 	private Integer orderStatus;
 	
 	@OneToMany(
-	          mappedBy = "shipment",
+	          mappedBy = "userOrder",
 	          cascade = CascadeType.ALL,
 	          orphanRemoval = true
 	      )
-	      private Set<Shipment> shipments = new HashSet<>();
+	private Set<Shipment> shipments = new HashSet<>();
 
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="userId", referencedColumnName="userId")
 	    private User user;
+	
+	public Long getUserOrderId() {
+		return userOrderId;
+	}
+
+	public void setUserOrderId(Long userOrderId) {
+		this.userOrderId = userOrderId;
+	}
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+
+	public Set<Shipment> getShipments() {
+		return shipments;
+	}
+
+	public void setShipments(Set<Shipment> shipments) {
+		this.shipments = shipments;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
 	
 	public Long getOrderId() {
 		return userOrderId;

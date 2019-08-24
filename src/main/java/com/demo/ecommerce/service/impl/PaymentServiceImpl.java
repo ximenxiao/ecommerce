@@ -29,8 +29,8 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public Payment findByOrderID(Long orderId) {
-		return paymentRepository.findByUserOrder(orderService.findById(orderId));
+	public Payment findByOrder(Long orderId) {
+		return paymentRepository.findByUserOrder(orderService.findByOrderId(orderId));
 	}
 
 	@Override
@@ -39,8 +39,13 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public Payment update(Payment payment) {
-		return paymentRepository.save(payment);
+	public Payment update(Long paymentId, Payment payment) {
+		Payment p=findByPaymentId(paymentId);
+		p.setPaymentMethod(payment.getPaymentMethod());
+		p.setTotalPrice(payment.getTotalPrice());
+		p.setPaymentStatus(payment.getPaymentStatus());
+		p.setUserOrder(payment.getUserOrder());
+		return paymentRepository.save(p);
 	}
 
 	@Override
