@@ -1,15 +1,17 @@
 package com.demo.ecommerce.service.impl;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.demo.ecommerce.domain.Product;
 import com.demo.ecommerce.domain.Review;
 import com.demo.ecommerce.exception.ResourceNotFoundException;
 import com.demo.ecommerce.repository.ReviewRepository;
 import com.demo.ecommerce.service.ReviewService;
 import com.demo.ecommerce.service.UserService;
-//import com.demo.ecommerce.service.ProductService;
+import com.demo.ecommerce.service.ProductsService;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -20,7 +22,7 @@ public class ReviewServiceImpl implements ReviewService {
 	private UserService userService;
 	
 	@Autowired
-	//private ProductService productService;
+	private ProductsService productService;
 	
 	@Override
 	public List<Review> findAll() {	
@@ -75,16 +77,15 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public Review add(Review review, Long id, Long userId) {
-		//productService.findById(id)
-		//Set<Review> reviews = product.getReviews();
-		//Review r = review;
-		//r.setUser(userService.findById(userId));
-		//r=save(r);
-		//reviews.add(r)
-		//product.setReviews(reviews)
-		//productService.save(product);
-		//return r;
-		return null;
+		Product p = productService.findById(id);
+		Set<Review> reviews = p.getReviews();
+		Review r = review;
+		r.setUser(userService.findById(userId));
+		r=add(r);
+		reviews.add(r);
+		p.setReviews(reviews);
+		productService.update(p,p.getProductId());
+		return r;
 	}	
 
 }

@@ -2,12 +2,16 @@ package com.demo.ecommerce.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,8 +20,8 @@ public class Product {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "productId")
-	private Long productId;
+	@Column(name = "productId") 
+	Long productId;
 	
 	@Column(name = "name",nullable=false)
 	private String name;
@@ -34,11 +38,25 @@ public class Product {
 	@Column(name = "status")
 	private Integer status;
 	
+	@OneToMany(
+		        cascade = CascadeType.ALL,
+		        orphanRemoval = true
+		    )
+	private Set<Review> reviews = new HashSet<>();
+	
 	@Column(name = "createdAt")
 	private Date createdAt = new Date();
 	
 	@Column(name = "updatedAt")
 	private Date updatedAt = new Date();
+
+	public Set<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(Set<Review> reviews) {
+		this.reviews = reviews;
+	}
 
 	public Long getProductId() {
 		return productId;
