@@ -1,16 +1,19 @@
 package com.demo.ecommerce.service;
 import java.util.List;
+
 import com.demo.ecommerce.domain.Review;
-import com.demo.ecommerce.domain.User;
 
 public interface ReviewService {
 	List<Review> findAll();
-	Review findById(Long id);
-	Review  add(Review  review );
-	Review  update(Review  review );
-	void delete(Review  review );
-	List<Review> findReviewByUserId(Long userId)throws Exception;
-	List<Review> findReviewByUserName(User user) throws Exception;
-	List<Review> findReviewByUserName(String userName) throws Exception;
-	List<Review> findReviewByProductId(Long productId);
+	Review findById(Long id);	
+	List<Review> findByUser(String userName);
+	Review add(Review review);
+	Review update(Review review);
+	void delete(Review review);
+	List<Review> findAll(String userName, String title, Integer rate);
+	Review update(Long id, Review review);
+	List<Review>  findByproductId(Long id);
+	Review add(Review review, Long id, Long userId);
+
+
 }

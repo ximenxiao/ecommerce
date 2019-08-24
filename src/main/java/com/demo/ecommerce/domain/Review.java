@@ -1,7 +1,7 @@
 package com.demo.ecommerce.domain;
+
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "review")
@@ -19,75 +21,111 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "reviewId")
 	private Long reviewId;
-	@Column(name = "userName",nullable=false,unique=true,length=50) 
+	
+	@NotNull(message = "userName cannot be null")
+	@Column(name = "userName", nullable = false, unique = true, length = 50)
 	private String userName;
-	@Column(name = "userAvatarUrl",nullable=false) 
+	
+	@Column(name = "userAvatarUrl", nullable = false)
 	private String userAvatarUrl;
-	@Column(name = "title") 
+	
+	
+	@Column(name = "title")
 	private String title;
-	@Column(name = "content") 
+	
+	// @Column(name = "content")
+	@NotNull(message = "Content cannot be null")
+	@Column(name = "content", nullable = false)
 	private String content;
+	
 	@Column(name = "createdAt")
-	private Date createdAt = new Date();	
+	private Date createdAt = new Date();
+	
 	@Column(name = "updatedAt")
 	private Date updatedAt = new Date();
-	@Column(name = "rate")
+
+	@NotNull(message = "Rate cannot be null")
+	@Column(name = "rate", nullable = false)
 	private Integer rate;
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "userId")
-	private  List<Review> reviews;
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "productId")
-	private  List<Review> reviews1;
 	
+	/*
+	 * @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	 * 
+	 * @JoinColumn(name = "productId") private List<Review> reviews;
+	 */
+	
+	@ManyToOne(optional = false)
+    @JoinColumn(name="product_reviewid")
+	private Product product;
+	
+	@ManyToOne(optional = false)
+    @JoinColumn(name="review_userid")
+	private User user;
+
 	public Long getReviewId() {
 		return reviewId;
 	}
+
 	public void setReviewId(Long reviewId) {
 		this.reviewId = reviewId;
 	}
+
 	public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 	public String getUserAvatarUrl() {
 		return userAvatarUrl;
 	}
+
 	public void setUserAvatarUrl(String userAvatarUrl) {
 		this.userAvatarUrl = userAvatarUrl;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
+
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+
 	public Date getUpdatedAt() {
 		return updatedAt;
 	}
+
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+
 	public Integer getRate() {
 		return rate;
 	}
+
 	public void setRate(Integer rate) {
 		this.rate = rate;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -102,6 +140,7 @@ public class Review {
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -153,12 +192,12 @@ public class Review {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Review [reviewId=" + reviewId + ", userName=" + userName + ", userAvatarUrl=" + userAvatarUrl
 				+ ", title=" + title + ", content=" + content + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
 				+ ", rate=" + rate + "]";
 	}
-	
-	
+
 }

@@ -1,6 +1,6 @@
 package com.demo.ecommerce.domain;
 import java.util.List;
-
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,12 +22,16 @@ public class ShoppingCart {
 	@Column(name = "id")
 	private Long id;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "userId")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
+	@JoinColumn(name = "shoppingCartId")
 	private List<Product> products;
+	
+	 //@OneToOne(cascade = CascadeType.ALL, orphanRemoval = false, mappedBy = "user")
+	   // private User user;
+	
 	 @OneToOne(fetch = FetchType.LAZY)
 	 @MapsId
-	private User user;
+	 private User user;
 
 	public Long getId() {
 		return id;
