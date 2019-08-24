@@ -1,10 +1,7 @@
 package com.demo.ecommerce.service.impl;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.demo.ecommerce.domain.User;
 import com.demo.ecommerce.exception.ResourceNotFoundException;
 import com.demo.ecommerce.repository.UserRepository;

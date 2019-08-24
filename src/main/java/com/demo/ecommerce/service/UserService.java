@@ -1,7 +1,5 @@
 package com.demo.ecommerce.service;
-
 import java.util.List;
-
 import com.demo.ecommerce.domain.User;
 
 public interface UserService {
