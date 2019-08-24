@@ -55,7 +55,11 @@ public class UserController {
 		 return null;
 	}
 	
+<<<<<<< HEAD
 	
 	
 	
+=======
+
+>>>>>>> upstream/master
 }
