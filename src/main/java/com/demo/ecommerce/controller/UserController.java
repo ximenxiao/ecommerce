@@ -1,5 +1,4 @@
 package com.demo.ecommerce.controller;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.demo.ecommerce.domain.User;
 import com.demo.ecommerce.service.UserService;
 
-import io.swagger.annotations.ApiOperation;
-
 @RestController
 public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	
+
+
+	@GetMapping("/users")
 	public List<User> findAllUsers(
 			@RequestParam(value = "userName", required = false)String userName,
 			@RequestParam(value = "status", required = false) Integer status,
@@ -54,12 +53,4 @@ public class UserController {
 		 userService.delete(userService.findById(id));
 		 return null;
 	}
-	
-<<<<<<< HEAD
-	
-	
-	
-=======
-
->>>>>>> upstream/master
 }
